@@ -116,7 +116,7 @@ export const sendNotification = async (req, res) => {
     const axiosShopifyConfig = {
       headers: {
         "Content-Type": "application/json",
-        "X-Shopify-Access-Token":  "shpua_5e432a3c9f55ee4b630217d977cff75d" || accessToken, // remove static value add because we haven't access of user
+        "X-Shopify-Access-Token": accessToken, // remove static value add because we haven't access of user
       },
     };
 
