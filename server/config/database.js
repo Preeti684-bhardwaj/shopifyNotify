@@ -5,11 +5,12 @@ dotenv.config();
 
 
 const sequelize = new Sequelize({
-  dialect: process.env.Dialect,
-  host: process.env.Host,
-  username: process.env.User,
-  password:  process.env.Password,
-  database: process.env.Database
+  dialect: 'postgres',
+  host: process.env.PGHOST,
+  port: process.env.PGPORT,
+  username: process.env.PGUSER,
+  password: process.env.PGPASSWORD,
+  database: process.env.PGDATABASE,
 });
 
 export default sequelize
