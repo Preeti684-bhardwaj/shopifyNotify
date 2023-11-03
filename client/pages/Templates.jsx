@@ -36,7 +36,10 @@ export default function Templates() {
       if ("serverKey" in result) {
         setData(result.serverKey);
         console.log(result.serverKey);
-      } else navigate("/");
+      } else 
+      {navigate("/");
+      setIsLandingPageErrorVisible(true)
+    }
     };
 
     return [data, fetchData];
