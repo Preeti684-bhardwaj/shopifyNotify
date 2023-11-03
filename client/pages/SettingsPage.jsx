@@ -51,7 +51,7 @@ export default function SettingsPage() {
     const fetch = useFetch();
 
     const fetchData = async () => {
-      setData("");
+      setData("Loading...");
       const result = await (await fetch(url, options)).json();
       console.log(result);
       if ("serverKey" in result) setData(result.serverKey);
@@ -148,7 +148,7 @@ export default function SettingsPage() {
                 className={styles.serviceKeyField}
                 rows={5}
                 maxLength={152}
-                value={serverKey?serverKey:"Loading..."}
+                value={serverKey}
                 onChange={(e) => setServerKey(e.target.value)}
                 disabled={!isTextareaEnabled}
               />
