@@ -103,13 +103,7 @@ textarea::-webkit-scrollbar {
   font-family: sora;
   font-size: 14px;
 }
-.MuiAutocomplete-hasPopupIcon.css-1h51icj-MuiAutocomplete-root
-  .MuiFilledInput-root,
-.MuiAutocomplete-hasClearIcon.css-1h51icj-MuiAutocomplete-root
-  .MuiFilledInput-root {
-  background-color: white;
-  border: 1px solid #d1d1d1;
-}
+
 
 .bottomSection {
   display: flex;
