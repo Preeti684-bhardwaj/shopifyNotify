@@ -1,4 +1,4 @@
-import { Button } from "@mui/material";
+import { Button, CircularProgress } from "@mui/material";
 import { Page, Text } from "@shopify/polaris";
 import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
@@ -12,6 +12,8 @@ export default function LandingPage() {
   const navigate = useNavigate();
   const [serverKey, setServerKey] = useRecoilState(serverKeyAtom);
   const [isServerKeyValid, setIsServerKeyValid] = useState(false);
+
+
   const handleInput = (event) => {
     const input = event.target.value;
     setServerKey(input);
@@ -73,21 +75,18 @@ export default function LandingPage() {
       fetchServerKey();
       setServerKey(responseServerKey);
     }
+   
   }, []);
   useEffect(() => {
-    console.log("useEffect running on response");
-    console.log("hi from landingPage line 79")
-    console.log(`https://${appOrigin}`)
     console.log(responseServerKey);
-    if (responseServerKey.length === 152) {
-      console.log("if condition running", responseServerKey);
+    if (responseServerKey.length === 152||serverKey.length===152) {
       navigate("/templates");
     }
   }, [responseServerKey]);
 
   return (
     <>
-      <Page>
+      { serverKey.length===0?<CircularProgress color="inherit"/>: <Page>
         <div className={styles.container}>
           <div className={styles.topHalf}>
             <img src={userImg} alt="userIcon" className={styles.userImg} />
@@ -103,7 +102,7 @@ export default function LandingPage() {
             <input
               onChange={handleInput}
               type="text"
-              value={serverKey}
+              value={serverKey==='Server key not found'?"":serverKey}
               maxLength="152"
               className={styles.serverKeyInput}
               placeholder=" Enter Sever Key"
@@ -119,7 +118,7 @@ export default function LandingPage() {
             </Button>
           </div>
         </div>
-      </Page>
+      </Page>}
     </>
   );
 }
