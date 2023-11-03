@@ -51,7 +51,7 @@ export default function SettingsPage() {
     const fetch = useFetch();
 
     const fetchData = async () => {
-      setData("loading...");
+      setData("");
       const result = await (await fetch(url, options)).json();
       console.log(result);
       if ("serverKey" in result) setData(result.serverKey);
@@ -84,8 +84,10 @@ export default function SettingsPage() {
   useEffect(() => {
     //useEffect to fetch Server Key
     setServerKeyErrorVisible(false);
-    fetchServerKey();
-    setServerKey(responseServerKey);
+    if(!serverKey){
+      fetchServerKey();
+      setServerKey(responseServerKey);
+    }
   }, []);
   useEffect(() => {
     if (serverKeyPost === "ServerKey set Succeessufull") {
@@ -98,6 +100,7 @@ export default function SettingsPage() {
   }, [serverKeyPost]);
   useEffect(() => {
     //useEffect to update serverKey state once the key is fetched
+    if(!serverKey)
     setServerKey(responseServerKey);
   }, [responseServerKey]);
 
@@ -141,7 +144,7 @@ export default function SettingsPage() {
                 className={styles.serviceKeyField}
                 rows={5}
                 maxLength={152}
-                value={serverKey}
+                value={serverKey?serverKey:"Loading..."}
                 onChange={(e) => setServerKey(e.target.value)}
                 disabled={!isTextareaEnabled}
               />
