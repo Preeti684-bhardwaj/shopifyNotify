@@ -9,7 +9,7 @@ import useFetch from "../hooks/useFetch";
     const fetchData = async () => {
       setData("");
       const result = await (await fetch(url, options)).json();
-      console.log(result)
+      // console.log(result)
       if ("serverKey" in result) {
         setData(result.serverKey);
         }

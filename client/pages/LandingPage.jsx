@@ -4,15 +4,19 @@ import React, { useEffect, useState } from "react";
 import styles from "./LandingPage.module.css";
 import { useNavigate } from "raviger";
 import userImg from "../public/userImg.png";
-import { useRecoilState } from "recoil";
-import { serverKeyAtom } from "../recoilStore/store";
+import { useRecoilState, useRecoilValue } from "recoil";
+import {
+  isLandingPageAlertVisibleAtom,
+  serverKeyAtom,
+} from "../recoilStore/store";
 import useFetch from "../hooks/useFetch";
+import AlertBanner from "../components/alert/Alert";
 
 export default function LandingPage() {
   const navigate = useNavigate();
   const [serverKey, setServerKey] = useRecoilState(serverKeyAtom);
   const [isServerKeyValid, setIsServerKeyValid] = useState(false);
-
+  const isAlertVisible = useRecoilValue(isLandingPageAlertVisibleAtom);
 
   const handleInput = (event) => {
     const input = event.target.value;
@@ -75,50 +79,59 @@ export default function LandingPage() {
       fetchServerKey();
       setServerKey(responseServerKey);
     }
-   
   }, []);
   useEffect(() => {
     console.log(responseServerKey);
-    if (responseServerKey.length === 152||serverKey.length===152) {
+    if (responseServerKey.length === 152 || serverKey.length === 152) {
       navigate("/templates");
     }
   }, [responseServerKey]);
 
   return (
     <>
-      { serverKey.length===0?<CircularProgress color="inherit"/>: <Page>
-        <div className={styles.container}>
-          <div className={styles.topHalf}>
-            <img src={userImg} alt="userIcon" className={styles.userImg} />
-            <Text id={styles.greeting} as="h1" variant="headingMd">
-              Hi, Welcome!
-            </Text>
-          </div>
-          <div className={styles.bottomHalf}>
-            <Text id={styles.heading} variant="headingMd">
-              Please enter your server key
-            </Text>
+      {serverKey.length === 0 ? (
+        <CircularProgress color="inherit" />
+      ) : (
+        <Page>
+          {isAlertVisible && (
+            <AlertBanner
+              alertTitle={"Alert"}
+              alertMessage={"Please enter your Firebase Server Key to continue"}
+            />
+          )}
+          <div className={styles.container}>
+            <div className={styles.topHalf}>
+              <img src={userImg} alt="userIcon" className={styles.userImg} />
+              <Text id={styles.greeting} as="h1" variant="headingMd">
+                Hi, Welcome!
+              </Text>
+            </div>
+            <div className={styles.bottomHalf}>
+              <Text id={styles.heading} variant="headingMd">
+                Please enter your server key
+              </Text>
 
-            <input
-              onChange={handleInput}
-              type="text"
-              value={serverKey==='Server key not found'?"":serverKey}
-              maxLength="152"
-              className={styles.serverKeyInput}
-              placeholder=" Enter Sever Key"
-              size="small"
-            ></input>
-            <Button
-              disabled={!isServerKeyValid}
-              id={styles.submitBtn}
-              variant="contained"
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
+              <input
+                onChange={handleInput}
+                type="text"
+                value={serverKey === "Server key not found" ? "" : serverKey}
+                maxLength="152"
+                className={styles.serverKeyInput}
+                placeholder=" Enter Sever Key"
+                size="small"
+              ></input>
+              <Button
+                disabled={!isServerKeyValid}
+                id={styles.submitBtn}
+                variant="contained"
+                onClick={handleSubmit}
+              >
+                Submit
+              </Button>
+            </div>
           </div>
-        </div>
-      </Page>}
+        </Page>
+      )}
     </>
   );
 }

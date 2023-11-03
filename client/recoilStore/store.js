@@ -28,6 +28,10 @@ export const isAlertVisibleAtom = atom({
     key:'isAlertVisibleAtom',
     default:false
 })
+export const isLandingPageAlertVisibleAtom = atom({
+    key:'isLandingPageAlertVisibleAtom',
+    default:false
+})
 export const dataFromApiAtom = atom({
     key:'dataFromApiAtom',
     default:[]
