@@ -30,6 +30,15 @@
 #saveBtn:disabled{
     background-color: #D4D1E2;
 }
+#cancelBtn{
+    color: #4D3F87;
+    width: 6rem;
+    text-transform: none;
+    margin-right: 10px;
+}
+#cancelBtn:hover{
+    background-color: #D4D1E2;
+}
 .serviceKeyField{
     resize: none;
     width: 100%;

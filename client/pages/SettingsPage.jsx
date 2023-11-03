@@ -80,7 +80,15 @@ export default function SettingsPage() {
     setIsTextareaEnabled(false);
     postServerKey();
   };
+  const handleCancel = () =>{
+    setIsEditVisible(true);
+    setIsTextareaEnabled(false);
+    fetchServerKey();
+  setIsSaveDisabled(false)
+  }
+  
 
+  
   useEffect(() => {
     //useEffect to fetch Server Key
     setServerKeyErrorVisible(false);
@@ -100,7 +108,7 @@ export default function SettingsPage() {
   }, [serverKeyPost]);
   useEffect(() => {
     //useEffect to update serverKey state once the key is fetched
-    if(!serverKey)
+    if(serverKey.length!==152)
     setServerKey(responseServerKey);
   }, [responseServerKey]);
 
@@ -117,10 +125,6 @@ export default function SettingsPage() {
   return (
     <div>
       <Page
-        backAction={{
-          content: "back",
-          onAction: () => navigate("/createnotification"),
-        }}
         title="Settings"
       >
         {isServerKeyErrorVisible && (
@@ -161,7 +165,11 @@ export default function SettingsPage() {
                 >
                   Edit
                 </Button>
-              ) : (
+              ) : (<div>
+              <Button
+              id={styles.cancelBtn}
+              onClick={handleCancel}
+              >Cancel</Button>
                 <Button
                   id={styles.saveBtn}
                   disabled={isSaveDisabled}
@@ -174,6 +182,7 @@ export default function SettingsPage() {
                     "Save"
                   )}
                 </Button>
+              </div>
               )}
             </div>
           </div>

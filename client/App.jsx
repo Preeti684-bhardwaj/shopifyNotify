@@ -24,19 +24,22 @@ export default function App() {
       features={{ polarisSummerEditions2023: true }}
     >
       <AppBridgeProvider>
-        {/* <NavigationMenu
+        <NavigationMenu
           navigationLinks={[
             {
-              label: "Fetch Data",
-              destination: "/debug/data",
+              label: "Select Template",
+              destination: "/templates",
             },
             {
-              label: "Billing API",
-              destination: "/debug/billing",
+              label: "Create Notification",
+              destination: "/createnotification",
             },
+            {label:'Settings',
+            destination: "/settings"
+          }
           ]}
           matcher={(link) => currentPath === link.destination}
-        /> */}
+        />
         <ApolloClientProvider>{RouteComponents}</ApolloClientProvider>
       </AppBridgeProvider>
     </PolarisProvider>
